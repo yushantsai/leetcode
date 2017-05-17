@@ -1,3 +1,5 @@
+import math
+
 # Determine whether an integer is a palindrome.
 def isPalindrome(x):
 	y = [ch for ch in str(x)]
@@ -61,7 +63,45 @@ def intersection(nums1, nums2):
 
 # Determine two binary tree are equal.
 def isSameTree(p, q):
-        if p and q:
-            return p.val == q.val and isSameTree(p.left, q.left) and isSameTree(p.right, q.right)
+	if p and q:
+		return p.val == q.val and isSameTree(p.left, q.left) and isSameTree(p.right, q.right)
+
+	return p is q
+
+# Represent an integer in base 7.
+def convertToBase7(num):
+	if num < 0:
+		return "-" + convertToBase7(abs(num))
+	if num < 7:
+		return str(num)
+
+	return convertToBase7(num / 7) + str(num % 7)
+
+# Form n coins in a staircase shape, and return the number of full staircase rows that can be formed.
+def arrangeCoins(n):
+	# n = (x * (x + 1)) / 2
+	# x = (-1 + (1 + 8 * n) ^ 0.5) / 2 since x is a positive integer
+	return int((-1 + math.sqrt(1 + 8 * n)) / 2)
+
+# Get all root-to-leaf paths of a binary tree.
+class TreeNode(object):
+	def __init__(self, x):
+		self.val = x
+		self.left = None
+		self.right = None
+
+def binaryTreePaths(root):
+	paths = []
+	if root:
+		rlp(root, "", paths)
+	return paths
         
-        return p is q
+def rlp(root, prev, paths):
+	# Reach the leaf node
+	if not root.left and not root.right:
+		paths.append(prev + str(root.val))
+	# Some nodes are not visited yet
+	if root.left:
+		rlp(root.left, prev + str(root.val) + "->", paths)
+	if root.right:
+		rlp(root.right, prev + str(root.val) + "->", paths)
