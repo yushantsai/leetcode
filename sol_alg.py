@@ -46,3 +46,22 @@ def countAndSay(n):
 				val += str(cnt)
 				val += ch
 	return val
+
+# Calculate the hamming distance between two integers.
+def hammingDistance(x, y):
+	return bin(x ^ y).count("1")
+
+# Determine whether the usage of capitals in a word is right or wrong.
+def detectCapitalUse(word):
+	return word.istitle() or word.isupper() or word.islower()
+
+# Get unique elements in the intersection of two lists.
+def intersection(nums1, nums2):
+	return list(set(nums1) & set(nums2))
+
+# Determine two binary tree are equal.
+def isSameTree(p, q):
+        if p and q:
+            return p.val == q.val and isSameTree(p.left, q.left) and isSameTree(p.right, q.right)
+        
+        return p is q
